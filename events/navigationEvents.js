@@ -1,3 +1,7 @@
+import { getAuthors, getFavAuthors } from '../api/authorData';
+import { booksOnSale, getBooks } from '../api/bookData';
+import { showAuthors } from '../pages/authors';
+import { showBooks } from '../pages/books';
 import { signOut } from '../utils/auth';
 
 // navigation events
@@ -8,20 +12,24 @@ const navigationEvents = () => {
 
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    console.warn('CLICKED SALE BOOKS');
+    booksOnSale().then(showBooks);
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    console.warn('CLICKED ALL BOOKS');
+    getBooks().then(showBooks);
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
   // 1. When a user clicks the authors link, make a call to firebase to get all authors
-  // 2. Convert the response to an array because that is what the makeAuthors function is expecting
+  // 2. Convert the response to an array because that is what the showAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    console.warn('CLICKED AUTHORS');
+    getAuthors().then(showAuthors);
+  });
+
+  document.querySelector('#authors-favs').addEventListener('click', () => {
+    getFavAuthors().then(showAuthors);
   });
 
   // STRETCH: SEARCH
